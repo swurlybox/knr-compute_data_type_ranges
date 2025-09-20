@@ -27,6 +27,9 @@ void compute_data_type_ranges(){
     printf("Unsigned Long: "); compute_urange(sizeof(unsigned long));
     printf("Signed Long: "); compute_srange(sizeof(signed long));
 
+    printf("\nFloat: "); compute_frange();
+    printf("Double: "); compute_dfrange();
+
     return;
 }
 

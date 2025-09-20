@@ -17,4 +17,7 @@
 void compute_srange(int byte_size);
 void compute_urange(int byte_size);
 
+void compute_frange();
+void compute_dfrange();
+
 #endif

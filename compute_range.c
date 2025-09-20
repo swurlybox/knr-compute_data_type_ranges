@@ -59,3 +59,49 @@ void compute_urange(int byte_size){
     return;
     
 }
+
+// Intended to only be used for the 32-bit float, so no need to pass in a param
+void compute_frange(){
+    
+    // I know what the lower and upper limits of a float look like in 
+    // their binary representation in memory, but how do I get there?
+
+    // Although binary literals were introduced in a later C standard, not 
+    // all compilers will support it. Hexadecimal literals are supported
+    // and specified in the standard. So we'll have to work with that...
+
+    // Holds the specific bit pattern for the lower limit.
+    unsigned int bit_pattern = 0xFF7FFFFF;
+
+    // Take the address of the bit_pattern, make a float pointer to it, then
+    // access the underlying value of the bit_pattern and assign it to
+    // bit_space
+    float lower_limit =  *(float *) &bit_pattern; //Does this work? yes it do
+    
+    // Can't do bitwise operators on floats, so we'll have to rawdog it
+    bit_pattern = 0x7F7FFFFF;
+    float upper_limit = *(float *) &bit_pattern;
+
+    printf("(%f) -> (%f)\n", lower_limit, upper_limit);
+    return;
+
+}
+
+void compute_dfrange(){
+    // 53 digits in significand (52 actually, if we exclude leading bit)
+    // 1 sign bit
+    // 11 bits for exponent
+
+    // 8 bytes in size, do we have any data type that is this large?
+    // long is 8 bytes, atleast on my machine
+
+    unsigned long bit_pattern = 0xFFEFFFFFFFFFFFFF;
+    double lower_limit = *(double *) &bit_pattern;
+
+    bit_pattern = 0x7FEFFFFFFFFFFFFF;
+    double upper_limit = *(double *) &bit_pattern;
+
+    printf("(%lf) -> (%lf)\n", lower_limit, upper_limit);
+    return;
+
+}
